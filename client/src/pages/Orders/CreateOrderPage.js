@@ -167,10 +167,12 @@ const CreateOrderPage = (props) => {
     if (event.target.checked) {
       tempProductId.push(tempValues[index].id);
     } else {
-      tempProductId.splice(tempProductId.indexOf(5), 1);
+      tempProductId.splice(tempProductId.indexOf(tempValues[index].id), 1);
     }
+    console.log("tempProductId", tempProductId);
     setValues({ ...values, productIds: tempProductId });
   };
+  console.log("tempProductId2", values);
 
   return (
     <>
