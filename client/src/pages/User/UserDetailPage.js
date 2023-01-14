@@ -119,9 +119,9 @@ const UserDetailPage = () => {
       {/* <div className="project_edit_main_content">
         <div className="about_page_section"> */}
       {menu === "leads" && <LeadList userId={getUserData[0]?.id} />}
-      {menu === "rewardsHistory" && (
+      {/* {menu === "rewardsHistory" && (
         <RewardsHistory userId={getUserData[0]?.id} />
-      )}
+      )} */}
       {menu === "properties" && (
         <Properties
           userId={getUserData[0]?.id}

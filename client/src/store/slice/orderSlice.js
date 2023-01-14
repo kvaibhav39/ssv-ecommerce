@@ -34,7 +34,7 @@ export const getOrderList = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       let url;
-      url = `/api/orders`;
+      url = `/api/orders?searchField=${data || ""}`;
       const response = await Axios.get(url, authHeaders());
       // if (data.callBack) {
       //   return data.cb(response.data);
@@ -96,11 +96,35 @@ export const updateOrderDetail = createAsyncThunk(
         authHeaders()
       );
       if (response.status === 200) {
-        toast.success("Company Detail Update Successfully !", {
+        toast.success("Order Detail Update Successfully !", {
           autoClose: 2000,
         });
       }
       data.navigate(routes.orders);
+      return response.data;
+    } catch (error) {
+      data.cb(error);
+    }
+  }
+);
+
+export const deleteOrderById = createAsyncThunk(
+  "deleteOrderById",
+  async (data, thunkAPI) => {
+    console.log("data", data);
+    try {
+      const response = await Axios.delete(
+        `/api/orders/${data.orderId}`,
+        data.data,
+        authHeaders()
+      );
+      if (response.status === 200) {
+        // toast.success("Company Detail Update Successfully !", {
+        //   autoClose: 2000,
+        // });
+        data.navigate(routes.orders);
+      }
+
       return response.data;
     } catch (error) {
       data.cb(error);
@@ -115,6 +139,7 @@ const initialState = {
   orders: [],
   createOrder: null,
   updateOrder: null,
+  deleteOrder: null,
   order: null,
   loader: false,
   error: "",
@@ -123,7 +148,15 @@ const initialState = {
 const orderSlice = createSlice({
   name: "order",
   initialState,
-  reducers: {},
+  reducers: {
+    clearOrderState: (state) => {
+      return {
+        ...state,
+        order: null,
+        deleteOrder: null,
+      };
+    },
+  },
 
   extraReducers: (builder) => {
     //getOrderList
@@ -185,7 +218,19 @@ const orderSlice = createSlice({
       state.loader = false;
       state.error = action.payload;
     });
+
+    builder.addCase(deleteOrderById.pending, (state) => {
+      state.loader = true;
+    });
+    builder.addCase(deleteOrderById.fulfilled, (state, action) => {
+      state.deleteOrder = action.payload;
+      state.loader = false;
+    });
+    builder.addCase(deleteOrderById.rejected, (state, action) => {
+      state.loader = false;
+      state.error = action.payload;
+    });
   },
 });
-// export const { logout } = orderSlice.actions;
+export const { clearOrderState } = orderSlice.actions;
 export default orderSlice.reducer;

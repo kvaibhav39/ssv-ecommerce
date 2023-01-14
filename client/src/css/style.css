@@ -2,6 +2,9 @@
 
 /* comman css start */
 
+iframe[style*="position: fixed;"] {
+  display: none;
+}
 .m-0 {
   margin: 0 !important;
 }
@@ -3353,6 +3356,139 @@ input[type="checkbox" i] {
 
 /* dashboard page css end */
 
+.create-order-checkbox-row .create-order-checkbox-col {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+}
+.create-order-checkbox-row .create-order-checkbox-col:last-child {
+  margin-bottom: 0px;
+}
+.create-order-checkbox-row .create-order-checkbox-col input {
+  margin-top: 3px;
+}
+.create-order-checkbox-row .create-order-checkbox-col label {
+  margin-left: 10px;
+  cursor: pointer;
+  border: 1px solid #e6edef;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+.create-order-checkbox-row .create-order-checkbox-col label p {
+  margin-bottom: 2px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #e6edef;
+  color: #c11f3b;
+  font-weight: 500;
+  font-size: 16px;
+}
+.create-order-checkbox-row .create-order-checkbox-col label span {
+  color: #59667a;
+  font-weight: 400;
+  font-size: 14px;
+}
+.custom_data_table_icon_button_row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 -5px;
+}
+.custom_data_table_icon_button_row > * {
+  margin: 0 5px;
+}
+.custom_data_table_icon_button {
+  padding: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: #c11f3b;
+  text-decoration: none;
+  position: relative;
+  transition: all 0.5s ease-in-out;
+  border-radius: 4px;
+  background: #c11f3b1a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+  border: 0;
+  margin: 0 auto;
+  cursor: pointer;
+}
+.custom_data_table_icon_button svg {
+  width: 20px;
+  height: 20px;
+}
+.custom_data_table_icon_button:hover {
+  color: #ffffff;
+  background: #c11f3b;
+}
+
+.common_heading {
+  font-size: 18px;
+  font-weight: 500;
+  color: #000;
+  margin-bottom: 0;
+  line-height: 21.6px;
+  text-transform: capitalize;
+}
+
+.custom_data_table_footer_btn {
+  margin-top: 16px;
+}
+
+.common_input {
+  background-color: #fff;
+  font-size: 14px;
+  border-color: #e6edef;
+  color: #717171;
+  display: block;
+  width: 100%;
+  padding: 6px 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  appearance: none;
+  border-radius: 4px;
+  outline: 0;
+}
+.creat_edit_project_btn_row .common_heading ~ div {
+  margin-left: auto;
+  max-width: 200px;
+  width: 100%;
+}
+.legal_doc_button {
+  display: flex;
+  align-items: center;
+}
+.legal_doc_button {
+  margin: 0 -5px;
+}
+.legal_doc_button > * {
+  margin: 0 5px;
+}
+.comman_light_btn {
+  font-size: 14px;
+  padding: 6px 28px;
+  font-weight: 600;
+  background: #c11f3b1a;
+  border: 1px solid #c11f3b1a;
+  color: #c11f3b;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  display: inline-block;
+}
+.comman_light_btn:hover {
+  background: #c11f3b;
+  color: #ffffff;
+  border-color: #c11f3b;
+}
 /* media query css start */
 
 @media (max-width: 1700px) {

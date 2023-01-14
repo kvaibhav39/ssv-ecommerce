@@ -2,7 +2,7 @@ const Order = require("../db/order-db");
 
 exports.getOrders = async (req, res, next) => {
   try {
-    let orders = await Order.fetchAll();
+    let orders = await Order.fetchAll(req.query.searchField);
     res.status(200).json({ status: true, orders });
   } catch (error) {
     throw error;
@@ -28,6 +28,7 @@ exports.updateOrder = async (req, res, next) => {
     const orderData = {
       id: req.params.id,
       orderDescription: req.body.orderDescription,
+      productIds: req.body.productIds,
     };
     await Order.update(orderData);
     res

@@ -105,6 +105,7 @@ const CreateOrderPage = (props) => {
           orderDescription: "Please Enter valid order description",
         };
       });
+      return false;
     }
     if (values.productIds.length === 0) {
       setErrors((prevState) => {
@@ -113,13 +114,16 @@ const CreateOrderPage = (props) => {
           productIds: "Please Enter at lease one product",
         };
       });
+      return false;
     }
+
+    return true;
   };
   console.log(values, errors);
 
   const submitOrderHandler = async (e) => {
     e.preventDefault();
-
+    console.log(validate());
     if (validate()) {
       setValues({ ...values, pending: true });
 
@@ -127,6 +131,8 @@ const CreateOrderPage = (props) => {
         orderDescription: values.orderDescription,
         productIds: values.productIds,
       };
+
+      console.log("data", data);
 
       if (orderState) {
         dispatch(
@@ -169,12 +175,17 @@ const CreateOrderPage = (props) => {
   return (
     <>
       {(values.pending || loader) && <Loader />}
-      <div className="center_back_button comman_btn_container">
+      {/* <div className="center_back_button comman_btn_container">
         <Link to={routes.orders} className="comman_btn back_btn">
           Back
         </Link>
-      </div>
+      </div> */}
       <div className="project_edit_main_content">
+        <div className="creat_edit_project_btn_row">
+          <h2 className="common_heading">
+            {orderState ? "Update Order" : "New Order"}
+          </h2>
+        </div>
         <div className="project_edit_feature_media_row">
           <div className="project_edit_detail_column_content">
             <Input
@@ -198,13 +209,20 @@ const CreateOrderPage = (props) => {
           </div>
         </div>
 
-        <Button
-          className="legal_doc_button"
-          buttonClassName="comman_btn"
-          onClick={submitOrderHandler}
-          text={orderState ? "Update" : "Submit"}
-          other=""
-        />
+        <div className="legal_doc_button">
+          <Button
+            buttonClassName="comman_light_btn"
+            onClick={() => navigate(routes.orders)}
+            text="Cancel"
+            other=""
+          />
+          <Button
+            buttonClassName="comman_btn"
+            onClick={submitOrderHandler}
+            text={orderState ? "Update" : "Submit"}
+            other=""
+          />
+        </div>
       </div>
     </>
   );

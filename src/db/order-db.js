@@ -68,11 +68,41 @@ module.exports = class Order {
     }
   }
 
-  static async update({ orderDescription, id }) {
+  static async update({ orderDescription, id, productIds }) {
     try {
       let response = await db.query(
         `UPDATE "ORDERS" SET "orderDescription" = '${orderDescription}' WHERE id = ${id}`
       );
+
+      await db.query(`DELETE FROM "OrderProductMap" WHERE "orderId" = ${id}`);
+
+      if (productIds.length > 0) {
+        for (let i = 0; i < productIds.length > 0; i++) {
+          let insert_columns = [],
+            actual_values = [];
+
+          insert_columns.push(`"productId"`);
+          actual_values.push(productIds[i]);
+          insert_columns.push(`"orderId"`);
+          actual_values.push(id);
+
+          console.log(
+            'INSERT INTO "OrderProductMap" (' +
+              insert_columns.join(",") +
+              ") VALUES (" +
+              actual_values.join(",") +
+              ") RETURNING id"
+          );
+
+          let inserted_data = await db.query(
+            'INSERT INTO "OrderProductMap" (' +
+              insert_columns.join(",") +
+              ") VALUES (" +
+              actual_values.join(",") +
+              ") RETURNING id"
+          );
+        }
+      }
       return response;
     } catch (error) {
       console.log(error);
@@ -99,10 +129,11 @@ module.exports = class Order {
     }
   }
 
-  static async fetchAll() {
+  static async fetchAll(searchField) {
+    if (!searchField) searchField = "";
     try {
       let response = await db.query(
-        `SELECT o.*,COUNT(opm.id) as count_of_product FROM "ORDERS" o LEFT OUTER JOIN "OrderProductMap" opm ON opm."orderId" = o.id GROUP BY opm."orderId",o.id ORDER BY o."createdAt" DESC`
+        `SELECT o.*,COUNT(opm.id) as count_of_product FROM "ORDERS" o LEFT OUTER JOIN "OrderProductMap" opm ON opm."orderId" = o.id WHERE o."orderDescription" LIKE '%${searchField}%' GROUP BY opm."orderId",o.id ORDER BY o."createdAt" DESC`
       );
       return response.rows;
     } catch (error) {
